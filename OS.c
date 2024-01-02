@@ -17,11 +17,9 @@ int handle_output_redirection(char *file);
 void closefile(int fd);
 void handle_pipe_operation(char **cmd1, char **cmd2);
 
-
 int main() {
 
     loop();
-
     return 0;
 }
 
@@ -218,6 +216,21 @@ int token_recognize(char **tokens) {
                 char **cmd1 = tokens;
                 char **cmd2 = &tokens[i + 1];
                 handle_pipe_operation(cmd1, cmd2);
+            }
+            else if (strcmp(tokens[i], "&") == 0) {
+                tokens[i] = NULL;
+                pid_t pid = fork();
+                if (pid == 0) { 
+                    execute_command(tokens);
+                    exit(0); 
+                } 
+                else if (pid > 0) {        
+                } 
+                else {
+                    perror("fork");
+                    exit(EXIT_FAILURE);
+                }
+                return 0;
             }
         }
         execute_command(tokens);
