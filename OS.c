@@ -177,7 +177,7 @@ int token_recognize(char **tokens) {
     }
 
     if (strcmp(tokens[0], "help") == 0) {
-        printf("funtion can use : <,>,|\n");
+        printf("funtion can use : <,>,|,&\n");
         return 0;
     }
     else {
