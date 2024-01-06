@@ -187,9 +187,14 @@ int token_recognize(char **tokens) {
                 file = tokens[i + 1];
                 tokens[i] = NULL;
                 int fd = open(file, O_RDONLY);
+                int fd_file =open("/dev/tty",O_RDWR,0666);//open on terminal
                 dup2(fd,STDIN_FILENO);
+                execute_command(tokens);
+                dup2(fd_file,STDIN_FILENO);
                 close(fd);
-                execlp("cat","cat",NULL);
+                close(fd_file);
+                //execlp("cat","cat",NULL);
+                return 0;
 
             } 
             else if (strcmp(tokens[i], ">") == 0) {
