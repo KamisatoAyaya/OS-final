@@ -190,14 +190,12 @@ int token_recognize(char **tokens) {
                 dup2(fd,STDIN_FILENO);
                 close(fd);
                 execlp("cat","cat",NULL);
-                //handle_input_redirection(file);
-                //fd=handle_input_redirection(file);
+
             } 
             else if (strcmp(tokens[i], ">") == 0) {
                 file = tokens[i + 1];
                 tokens[i] = NULL;
-                //handle_output_redirection(file);
-                //fd=handle_output_redirection(file);
+
                 int fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);//write in 
 
                 int fd_file =open("/dev/tty",O_RDWR,0666);//open on terminal
